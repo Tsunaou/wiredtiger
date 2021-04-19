@@ -2528,10 +2528,10 @@ tasks:
 
 buildvariants:
 
-- name: ubuntu1804
-  display_name: "! Ubuntu 18.04"
+- name: ubuntu2004
+  display_name: "! Ubuntu 20.04"
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   expansions:
     test_env_vars: LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libeatmydata.so PATH=/opt/mongodbtoolchain/v3/bin:$PATH LD_LIBRARY_PATH=$(pwd)/.libs top_srcdir=$(pwd)/.. top_builddir=$(pwd)
     smp_command: -j $(echo "`grep -c ^processor /proc/cpuinfo` * 2" | bc)
@@ -2545,7 +2545,7 @@ buildvariants:
     - name: compile-ubsan
     - name: ubsan-test
     - name: linux-directio
-      distros: ubuntu1804-build
+      distros: ubuntu2004-build
     - name: syscall-linux
     - name: configure-combinations
     - name: checkpoint-filetypes-test
@@ -2560,10 +2560,10 @@ buildvariants:
     - name: static-wt-build-test
     - name: format-failure-configs-test
 
-- name: ubuntu1804-asan
-  display_name: "! Ubuntu 18.04 ASAN"
+- name: ubuntu2004-asan
+  display_name: "! Ubuntu 20.04 ASAN"
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   expansions:
     configure_env_vars:
       CC=/opt/mongodbtoolchain/v3/bin/clang
@@ -2583,10 +2583,10 @@ buildvariants:
     - name: ".pull_request !.windows_only !.pull_request_compilers !.python"
     - examples-c-test
 
-- name: ubuntu1804-compilers
-  display_name: "! Ubuntu 18.04 Compilers"
+- name: ubuntu2004-compilers
+  display_name: "! Ubuntu 20.04 Compilers"
   run_on:
-  - ubuntu1804-wt-build
+  - ubuntu2004-wt-build
   expansions:
     posix_configure_flags: --enable-silent-rules --enable-diagnostic --enable-strict --enable-lz4 --enable-snappy --enable-zlib --enable-zstd --enable-python
     python_binary: '/opt/mongodbtoolchain/v3/bin/python3'
@@ -2595,10 +2595,10 @@ buildvariants:
   tasks:
     - name: ".pull_request_compilers"
 
-- name: ubuntu1804-stress-tests
-  display_name: Ubuntu 18.04 Stress tests
+- name: ubuntu2004-stress-tests
+  display_name: Ubuntu 20.04 Stress tests
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   expansions:
     smp_command: -j $(grep -c ^processor /proc/cpuinfo)
     make_command: PATH=/opt/mongodbtoolchain/v3/bin:$PATH make
@@ -2619,7 +2619,7 @@ buildvariants:
   display_name: "~ Package"
   batchtime: 1440 # 1 day
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   tasks:
     - name: package
 
@@ -2627,7 +2627,7 @@ buildvariants:
   display_name: "~ Documentation update"
   batchtime: 1440 # 1 day
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   tasks:
     - name: doc-update
   expansions:
@@ -2637,7 +2637,7 @@ buildvariants:
   display_name: Linux no ftruncate
   batchtime: 1440 # 1 day
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   expansions:
     test_env_vars: LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libeatmydata.so PATH=/opt/mongodbtoolchain/v3/bin:$PATH LD_LIBRARY_PATH=$(pwd)/.libs top_srcdir=$(pwd)/.. top_builddir=$(pwd)
     smp_command: -j $(grep -c ^processor /proc/cpuinfo)
@@ -2693,7 +2693,7 @@ buildvariants:
   display_name: "Code statistics"
   batchtime: 1440 # 1 day
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   expansions:
     test_env_vars: LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libeatmydata.so PATH=/opt/mongodbtoolchain/v3/bin:$PATH LD_LIBRARY_PATH=$(pwd)/.libs top_srcdir=$(pwd)/.. top_builddir=$(pwd)
   tasks:
@@ -2704,7 +2704,7 @@ buildvariants:
   display_name: Compatibility tests (less frequent)
   batchtime: 10080 # 7 days
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   tasks:
     - name: compatibility-test-for-older-releases
     - name: compatibility-test-for-wt-standalone-releases
@@ -2712,7 +2712,7 @@ buildvariants:
 - name: compatibility-tests
   display_name: Compatibility tests
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   tasks:
     - name: compatibility-test-for-newer-releases
     - name: import-compatibility-test
@@ -2752,7 +2752,7 @@ buildvariants:
 - name: little-endian
   display_name: "~ Little-endian (x86)"
   run_on:
-  - ubuntu1804-test
+  - ubuntu2004-test
   batchtime: 10080 # 7 days
   expansions:
     python_binary: '/opt/mongodbtoolchain/v3/bin/python3'
@@ -2769,7 +2769,7 @@ buildvariants:
   modules:
   - enterprise
   run_on:
-  - ubuntu1804-zseries-build
+  - ubuntu2004-zseries-build
   batchtime: 10080 # 7 days
   expansions:
     python_binary: '/opt/mongodbtoolchain/v3/bin/python3'
@@ -2781,10 +2781,10 @@ buildvariants:
   - name: verify-datafile-big-endian
   - name: verify-datafile-from-little-endian
 
-- name: ubuntu1804-ppc
-  display_name: "~ Ubuntu 18.04 PPC"
+- name: ubuntu2004-ppc
+  display_name: "~ Ubuntu 20.04 PPC"
   run_on:
-  - ubuntu1804-power8-test
+  - ubuntu2004-power8-test
   expansions:
     format_test_setting: ulimit -c unlimited
     smp_command: -j $(grep -c ^processor /proc/cpuinfo)
@@ -2803,10 +2803,10 @@ buildvariants:
   - name: ".stress-test-ppc-1"
   - name: ".stress-test-ppc-2"
 
-- name: ubuntu1804-zseries
-  display_name: "~ Ubuntu 18.04 zSeries"
+- name: ubuntu2004-zseries
+  display_name: "~ Ubuntu 20.04 zSeries"
   run_on:
-  - ubuntu1804-zseries-test
+  - ubuntu2004-zseries-test
   expansions:
     smp_command: -j $(grep -c ^processor /proc/cpuinfo)
     make_command: PATH=/opt/mongodbtoolchain/v3/bin:$PATH make
