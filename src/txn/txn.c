@@ -189,6 +189,20 @@ __wt_txn_get_snapshot(WT_SESSION_IMPL *session)
 		txn_state->metadata_pinned = id;
 	}
 
+	// 在这里开始记录
+	struct timespec ts;
+	timespec_get(&ts, TIME_UTC);
+	// uint64_t current_clock = __wt_clock(session);
+	if (WT_VERBOSE_ISSET(session, WT_VERB_TRANSACTION)) {
+		__wt_verbose(session, WT_VERB_TRANSACTION,
+			"In session %" PRIu32
+			", txn begins at %" PRIu64
+			", %" PRIu64, 
+			session->id,
+			ts.tv_sec,
+			ts.tv_nsec);
+	}
+
 	/* For pure read-only workloads, avoid scanning. */
 	if (prev_oldest_id == current_id) {
 		txn_state->pinned_id = current_id;
@@ -623,6 +637,21 @@ __wt_txn_release(WT_SESSION_IMPL *session)
 			__txn_remove_from_global_table(session);
 		txn->id = WT_TXN_NONE;
 	}
+
+	// 在这里开始记录
+	struct timespec ts;
+	timespec_get(&ts, TIME_UTC);
+	// uint64_t current_clock = __wt_clock(session);
+	if (WT_VERBOSE_ISSET(session, WT_VERB_TRANSACTION)) {
+		__wt_verbose(session, WT_VERB_TRANSACTION,
+			"In session %" PRIu32
+			", txn commit at %" PRIu64
+			", %" PRIu64, 
+			session->id,
+			ts.tv_sec,
+			ts.tv_nsec);
+	}
+
 
 	__wt_txn_clear_durable_timestamp(session);
 

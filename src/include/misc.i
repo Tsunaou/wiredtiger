@@ -67,6 +67,11 @@ __wt_clock(WT_SESSION_IMPL *session)
 
 	if (__wt_process.use_epochtime) {
 		__wt_epoch(session, &tsp);
+		__wt_verbose(session, WT_VERB_TRANSACTION,
+			"Raw timespec.time_t: %jd"
+			", Raw timespec.tv_nsec: %09ld", 
+			tsp.tv_sec, 
+			tsp.tv_nsec);
 		return ((uint64_t)(tsp.tv_sec * WT_BILLION + tsp.tv_nsec));
 	}
 	return (__wt_rdtsc());
